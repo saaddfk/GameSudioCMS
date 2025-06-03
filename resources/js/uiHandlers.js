@@ -1,9 +1,11 @@
 // resources/js/uiHandlers.js
-// (Keep existing imports and top-level code)
-import { extractFrames } from './frameExtractor.js';
-import { loadModel, detectObjectsInFrame } from './objectDetector.js';
+// ... (imports and other functions)
+// Ensure exportAllAssetsAsZip is imported from './zipExporter.js'
 import { WorkspaceAssets, addEventToWorkspace, addStickerToWorkspace, addClipToWorkspace, loadInitialWorkspaceAssets, renderWorkspace, saveClipBlobToServer } from './workspace.js'; // Added saveClipBlobToServer
 import { exportAllAssetsAsZip, cutClip } from './zipExporter.js'; // cutClip is now used
+import { extractFrames } from './frameExtractor.js';
+import { loadModel, detectObjectsInFrame } from './objectDetector.js';
+
 
 console.log('uiHandlers.js loaded');
 
@@ -221,20 +223,42 @@ document.addEventListener('DOMContentLoaded', () => {
     // (Keep existing exportZipBtn and settingsForm listeners)
     const exportZipBtn = document.getElementById('export-zip-btn');
     if (exportZipBtn) {
-        exportZipBtn.addEventListener('click', () => {
+        exportZipBtn.addEventListener('click', async () => { // Make async if using await inside
             if (WorkspaceAssets.length === 0) {
-                alert("Workspace is empty. Nothing to export.");
+                addStatusMessage("Workspace is empty. Nothing to export.", true);
                 return;
             }
-            // Option 1: Client-side zipping (requires JSZip and fetching all assets)
-            // This is still a placeholder in zipExporter.js
-            // exportAllAssetsAsZip(WorkspaceAssets);
 
-            // Option 2: Server-side zipping (simpler for large files, already implemented in controller)
-            addStatusMessage("Preparing ZIP download...", false);
-            window.location.href = '/download-zip';
-            // Note: no direct feedback if server-side zip fails with this method,
-            // but it's simpler than full client-side zip with progress.
+            // Option 1: Client-side zipping
+            addStatusMessage("Preparing client-side ZIP export...", false);
+            exportZipBtn.disabled = true;
+            exportZipBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            updateProgressBar(0); // Reset progress bar for zip operation
+
+            try {
+                await exportAllAssetsAsZip(
+                    WorkspaceAssets,
+                    (progress) => { // onProgress callback
+                        updateProgressBar(progress);
+                    },
+                    (message, isError) => { // onStatus callback
+                        addStatusMessage(message, isError);
+                    }
+                );
+                // Success message is handled by exportAllAssetsAsZip's onStatus or implied by download
+            } catch (error) {
+                // This catch might not be hit if exportAllAssetsAsZip handles its own errors internally
+                addStatusMessage(`Client-side ZIP export failed: ${error.message}`, true);
+                updateProgressBar(0);
+            } finally {
+                exportZipBtn.disabled = false;
+                exportZipBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                // ProgressBar might show 100% or be reset by specific status messages
+            }
+
+            // Option 2: Server-side zipping (kept as a comment if preferred)
+            // addStatusMessage("Requesting server-side ZIP download...", false);
+            // window.location.href = '/download-zip';
         });
     }
 
