@@ -70,6 +70,14 @@ return [
             'report' => false,
         ],
 
+        'minecraft_assets' => [
+            'driver' => 'local',
+            'root' => public_path('minecraft_assets'),
+            'url' => env('APP_URL').'/minecraft_assets',
+            'visibility' => 'public',
+            'throw' => false, // Or true, depending on desired error handling
+        ],
+
     ],
 
     /*

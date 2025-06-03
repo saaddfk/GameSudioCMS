@@ -1,0 +1,39 @@
+---
+title: Upload Video
+layout: layouts/main
+---
+<h1 class="text-3xl font-bold mb-6">Upload Minecraft Video</h1>
+
+<form id="upload-form" method="POST" action="/process-video" enctype="multipart/form-data" class="bg-white dark:bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    {{ csrf_field }}
+    <div class="mb-4">
+        <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="video-input">
+            اختر فيديو ماينكرافت:
+        </label>
+        <input id="video-input" name="video" type="file" accept="video/mp4,video/webm" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600">
+    </div>
+
+    <div class="mb-6">
+        <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="interval-input">
+            فاصل الاستخراج (ثانية):
+        </label>
+        <input id="interval-input" name="interval" type="number" step="0.1" value="1.0" min="0.1" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 sm:w-1/3">
+    </div>
+
+    <div class="mb-6">
+         <button type="button" id="start-analysis-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            ابدأ التحليل
+        </button>
+    </div>
+</form>
+
+<!-- شريط التقدم -->
+<div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 mb-4">
+    <div id="progress-bar" class="bg-green-500 h-4 rounded-full" style="width: 0%;"></div>
+    <p id="progress-text" class="text-center text-sm text-gray-700 dark:text-gray-300 mt-1">0%</p>
+</div>
+<div id="status-messages" class="mt-4 text-sm text-gray-600 dark:text-gray-400"></div>
+<div id="video-preview-container" class="mt-4" style="display:none;">
+     <h3 class="text-xl font-semibold mb-2">Video Preview:</h3>
+     <video id="video-preview" controls muted class="max-w-full rounded"></video>
+</div>

@@ -1,0 +1,36 @@
+title: Idea
+fields:
+  -
+    handle: title
+    field:
+      type: text
+      display: Title
+      validate: required
+  -
+    handle: description
+    field:
+      type: textarea
+      display: Description
+  -
+    handle: timestamp
+    field:
+      type: float # Or text, depending on how it will be used
+      display: Timestamp (seconds)
+  -
+    handle: associated_stickers
+    field:
+      type: entries
+      collections:
+        - montage_assets # Assuming stickers are also in montage_assets with a 'sticker' blueprint
+      display: Associated Stickers
+      # mode: select # Optional: or tags
+      # max_items: 1 # Optional
+  -
+    handle: associated_clips
+    field:
+      type: entries
+      collections:
+        - montage_assets # Assuming clips are also in montage_assets with a 'clip' blueprint
+      display: Associated Clips
+      # mode: select # Optional
+      # max_items: 1 # Optional

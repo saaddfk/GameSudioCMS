@@ -1,0 +1,14 @@
+title: Sticker
+fields:
+  -
+    handle: name
+    field:
+      type: text
+      display: Name
+      validate: required
+  -
+    handle: image_path
+    field:
+      type: text # This will store the public path to the sticker
+      display: Image Path
+      validate: required

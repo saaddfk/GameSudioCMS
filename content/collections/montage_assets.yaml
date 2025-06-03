@@ -1,0 +1,13 @@
+title: 'Montage Assets'
+template: default
+layout: layouts/main # Will use the main layout created in a later step
+revisions: false
+route: '/montage-assets/{slug}'
+sort_dir: asc
+date_behavior:
+  past: public
+  future: private
+blueprints:
+  - idea
+  - sticker
+  - clip

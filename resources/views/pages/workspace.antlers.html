@@ -1,0 +1,35 @@
+---
+title: Workspace
+layout: layouts/main
+---
+<div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold">Montage Workspace</h1>
+    <button id="export-zip-btn" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        تصدير جميع الأصول (ZIP)
+    </button>
+</div>
+
+<div id="workspace-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {{# Sample data structure - this will be populated by JavaScript #}}
+    {{# remove }}
+    <div class="bg-white dark:bg-gray-800 shadow-md rounded p-4">
+        <h2 class="text-xl font-semibold mb-2">Idea Example</h2>
+        <p class="text-gray-700 dark:text-gray-300">Creeper detected at 12.34s (85%)</p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 shadow-md rounded p-4">
+        <h2 class="text-xl font-semibold mb-2">Sticker Example</h2>
+        <img src="https://via.placeholder.com/150" alt="Sticker Preview" class="rounded mb-2">
+        <a href="#" class="text-blue-500 hover:text-blue-700">Download Sticker</a>
+    </div>
+    <div class="bg-white dark:bg-gray-800 shadow-md rounded p-4">
+        <h2 class="text-xl font-semibold mb-2">Clip Example</h2>
+        <video controls class="w-full rounded mb-2">
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <a href="#" class="text-blue-500 hover:text-blue-700">Download Clip</a>
+    </div>
+    {{ /remove }}
+    {{# If no assets yet #}}
+    <p id="workspace-empty-message" class="text-gray-500 dark:text-gray-400 col-span-full">Your workspace is currently empty. Upload a video and start analysis to generate assets.</p>
+</div>

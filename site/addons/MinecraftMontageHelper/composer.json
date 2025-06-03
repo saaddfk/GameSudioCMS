@@ -1,0 +1,22 @@
+{
+    "name": "site/minecraft-montage-helper",
+    "description": "A Statamic addon to help with Minecraft montages.",
+    "type": "statamic-addon",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Site\\Addons\\MinecraftMontageHelper\\": "src/"
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Minecraft Montage Helper",
+            "description": "A Statamic addon to help with Minecraft montages."
+        },
+        "laravel": {
+            "providers": [
+                "Site\\Addons\\MinecraftMontageHelper\\MinecraftMontageHelperServiceProvider"
+            ]
+        }
+    }
+}

@@ -1,0 +1,24 @@
+title: Clip
+fields:
+  -
+    handle: name
+    field:
+      type: text
+      display: Name
+      validate: required
+  -
+    handle: video_path
+    field:
+      type: text # This will store the public path to the clip
+      display: Video Path
+      validate: required
+  -
+    handle: start_time
+    field:
+      type: float
+      display: Start Time (seconds)
+  -
+    handle: end_time
+    field:
+      type: float
+      display: End Time (seconds)
